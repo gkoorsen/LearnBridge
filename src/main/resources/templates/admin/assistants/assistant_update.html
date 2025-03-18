@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head th:insert="~{_base.html :: _head}"></head>
+<body>
+<custom th:insert="~{_base.html :: _navbar}"></custom>
+<main id="main" class="main container d-flex flex-column">
+    <custom th:insert="~{_base.html :: _alert}"></custom>
+    <h1 class="text-center">Assistants Management</h1>
+    <div id="working_area" class="flex-grow-1 p-5 rounded border" style="min-height: 80vh;">
+        <form id="form_main_content" action="#" th:action="@{/admin/assistants/update}" th:object="${formObject}" method="POST">
+            <div class="input-group mb-3">
+                <input th:field="*{organisationUid}" type="text" class="form-control" id="wl-org" name="wl-org" placeholder="org-id" required readonly hidden>
+            </div>
+            <div th:if="${#authorization.expression('hasAnyRole(''ORG_ADMIN'',''ADMIN'')')}">
+                <div class="input-group mb-3">
+								<span class="input-group-text" id="id-icon">
+									<i class="fa-solid fa-fingerprint"></i>
+								</span>
+                    <input th:field="*{uid}" type="text" class="form-control" id="wl-id" name="wl-id" placeholder="id" required readonly>
+                </div>
+            </div>
+            <div th:if="${#authorization.expression('hasAnyRole(''MANAGER'')')}">
+                <div class="input-group mb-3">
+                    <input th:field="*{uid}" type="text" class="form-control" id="wl-ida" name="wl-ida" placeholder="id" required readonly hidden>
+                </div>
+            </div>
+            <div th:if="${#authorization.expression('hasAnyRole(''ADMIN'',''ORG_ADMIN'')')}">
+                <div class="input-group mb-3">
+                    <label class="input-group-text">
+                        <i class="fa-solid fa-sitemap"></i>
+                    </label>
+                    <select class="form-select " th:field="*{moduleUid}">
+                        <option th:each="modules : ${moduleList}" th:value="${modules.uid}" th:text="${modules.name}"></option>
+                    </select>
+                </div>
+            </div>
+            <div th:if="${#authorization.expression('hasAnyRole(''MANAGER'')')}">
+                <div class="input-group mb-3">
+                    <input th:field="*{moduleUid}" type="text" class="form-control" id="wl-mod" name="wl-mod" placeholder="org-id" required readonly hidden>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+										<span class="input-group-text" id="name-icon">
+											<i class="fa-solid fa-robot"></i>
+										</span>
+                <input th:field="*{name}" type="text" class="form-control" id="wl-name" name="wl-name" placeholder="name" required>
+            </div>
+            <div class="input-group mb-3">
+											<span class="input-group-text" id="description-icon">
+												<i class="fa-solid fa-file-signature"></i>
+											</span>
+                <input th:field="*{description}" type="text" class="form-control" id="wl-description" name="wl-description" placeholder="description" required>
+            </div>
+            <div th:if="${#authorization.expression('hasAnyRole(''ADMIN'',''ORG_ADMIN'')')}">
+                <div class="input-group mb-3">
+													<span class="input-group-text" id="apiKey-icon">
+														<i class="fa-solid fa-key"></i>
+													</span>
+                    <input th:field="*{llmApiKey}" type="text" class="form-control" id="apiKey-apiKey" name="wl-apiKey" placeholder="assistant api key" required>
+                </div>
+            </div>
+            <div th:if="${#authorization.expression('hasAnyRole(''MANAGER'')')}">
+                <div class="input-group mb-3">
+                    <input th:field="*{llmApiKey}" type="text" class="form-control" id="apiKey-icon-man" name="wl-ida" placeholder="assistant api key" required readonly hidden>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+														<span class="input-group-text" id="additionalInstructions-icon">
+															<i class="fa-solid fa-note-sticky"></i>
+														</span>
+                <input th:field="*{additionalInstructions}" type="text" class="form-control" id="wl-additionalInstructions" name="wl-additionalInstructions" placeholder="additional instructions">
+            </div>
+            <div class="input-group mb-3" sec:authorize="hasAnyRole('ORG_ADMIN','ADMIN')">
+                <div class="form-check">
+                    <input th:field="*{disabled}" class="form-check-input" type="checkbox" value="" id="wl-disabled">
+                    <label class="form-check-label" for="wl-disabled">
+                        Disabled
+                    </label>
+                </div>
+            </div>
+            <div class="input-group mb-3" sec:authorize="hasAnyRole('MANAGER')">
+                <input th:field="*{disabled}" type="text" class="form-control" id="wl-disabled-man" name="wl-disabled-man" placeholder="org-id" required readonly hidden>
+            </div>
+            <div class="d-flex justify-content-between align-items-center">
+                <a th:href="@{/admin/assistants}" class="btn btn-outline-secondary justify-content-end">
+                    <span></span> Cancel
+
+                </a>
+                <button id="form_main_submit_button" type="button" class="btn btn-outline-success justify-content-end" onclick="disableButton()">
+                    <span id="form_main_submit_spinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                    <span id="form_main_submit_icon">
+																			<i class="fa-solid fa-floppy-disk"></i>
+																		</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</main>
+<custom th:insert="~{_base.html :: _bootstrap_js}"></custom>
+<script th:src="@{/js/form_control.js}"></script>
+</body>
+</html>

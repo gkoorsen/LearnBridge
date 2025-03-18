@@ -1,0 +1,39 @@
+services:
+
+  learnbridge-db:
+    image: learnbridge-postgres:latest
+    container_name: learnbridge-db
+    env_file:
+      - .env
+    environment:
+      - TZ=Africa/Johannesburg
+    volumes:
+      - ./appdata/db:/var/lib/postgresql/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "5432:5432"
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+
+  learnbridge-app:
+    image: learnbridge:latest
+    container_name: learnbridge-app
+    depends_on:
+      - learnbridge-db
+    env_file:
+      - .env
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "8080:8080"
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+
+networks:
+  default:
+    name: learnbridge
+    external: false

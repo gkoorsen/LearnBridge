@@ -1,0 +1,69 @@
+.navbar {
+    background: rgb(53, 55, 57);
+}
+
+.hide-arrow::after {
+    display: none !important; /* Hide the dropdown arrow */
+}
+
+.dropdown-menu {
+    background: rgb(53, 55, 57);
+}
+
+.image-opacity {
+    opacity: 0.3; /* Set opacity to 50% */
+}
+
+.cbtn-outline-secondary {
+    border: none;
+}
+
+.cbtn-outline-secondary:hover {
+    background: transparent;
+    border: none;
+}
+
+.alert {
+    border: none !important;
+    /*background: none;*/
+}
+
+/* styles.css */
+.chat_history_area {
+    /*min-height: 60vh;*/
+    height: 600px;
+    padding: 2px;
+    border-radius: 0.25rem;
+    border: 1px solid transparent;
+    overflow-x: hidden;
+    overflow: auto;
+}
+
+.assistant-record {
+    background-color: #1b4a81;
+}
+
+.page-error {
+    color: #d9534f;
+}
+
+/*TABLES*/
+.table_cell_inline_multi_button {
+    display: inline; /* Display multiple buttons in one table cell horizontally */
+}
+
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: 0;
+    display: none;
+    position: absolute;
+}
+
+.dropdown-submenu:hover .dropdown-menu {
+    display: block;
+}
