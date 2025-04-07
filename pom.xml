@@ -11,7 +11,7 @@
 
 	<groupId>africa.za.atech.spring</groupId>
 	<artifactId>learnbridge</artifactId>
-	<version>2025.02</version>
+	<version>2025.04.07</version>
 
 	<properties>
 		<java.version>17</java.version>

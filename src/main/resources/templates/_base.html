@@ -30,24 +30,10 @@
                             <a class="dropdown-item" th:href="@{/chat(assistant=${profileObject.assistantDTOList[0].uid})}">
                                 <i class="fas fa-robot"></i> New </a>
                         </li>
-                        <li th:if="${#lists.isEmpty(profileObject.assistantDTOList)}">
-                            <a class="dropdown-item" th:href="@{/chat/request}">
+                        <li th:if="${profileObject.assistantDTOList.size() != 1}" class="dropdown-submenu">
+                            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#newChatModal">
                                 <i class="fas fa-robot"></i> New
-
                             </a>
-                        </li>
-                        <li th:if="${not #lists.isEmpty(profileObject.assistantDTOList) and profileObject.assistantDTOList.size() > 1}" class="dropdown-submenu">
-                            <a class="dropdown-item dropdown-toggle">
-                                <i class="fas fa-users"></i> New
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li th:each="assistant : ${profileObject.assistantDTOList}">
-                                    <a class="dropdown-item" th:href="@{/chat(assistant=${assistant.uid})}">
-                                        <i class="fas fa-robot"></i>
-                                        <span th:text="${assistant.name}"></span>
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
                         <li>
                             <a class="dropdown-item" th:href="@{/chat/list}">
@@ -105,6 +91,32 @@
         </div>
     </div>
 </nav>
+<div class="modal fade" id="newChatModal" tabindex="-1" aria-labelledby="newChatModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newChatModalLabel">New Chat</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div th:if="${#lists.isEmpty(profileObject.assistantDTOList)}">
+                    <p>You don’t have any assistants assigned.</p>
+                    <a class="btn btn-outline-success" th:href="@{/chat/request}">Request Assistant</a>
+                </div>
+                <div th:if="${profileObject.assistantDTOList.size() > 1}">
+                    <p>Select an assistant to start chatting with:</p>
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center"
+                            th:each="assistant : ${profileObject.assistantDTOList}">
+                            <span th:text="${assistant.name}"></span>
+                            <a class="btn btn-outline-success btn-sm" th:href="@{/chat(assistant=${assistant.uid})}">Chat</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 <main id="main" class="main container d-flex flex-column">
     <div th:fragment="_alert">
