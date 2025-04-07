@@ -61,7 +61,7 @@ public class ChatController {
         usersService.addMandatoryAttributes(redirectAttributes, profile);
 
         usersService.requestAssistantAssignment(profile);
-        redirectAttributes.addFlashAttribute("alertList", List.of(new Alert(AlertType.WARNING, "No assistants are assigned. A request has been sent to your organisation admin. Please check back later.")));
+        redirectAttributes.addFlashAttribute("alertList", List.of(new Alert(AlertType.SUCCESS, "A request has been sent to your organisation admin. Please check back later.")));
         return "redirect:/home?requested=true";
     }
 
