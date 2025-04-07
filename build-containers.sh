@@ -1,7 +1,7 @@
 #! /bin/bash
 ROOT_DIR=$PWD
 APP_NAME=learnbridge
-APP_VER=2025.02
+APP_VER=2025.04.07
 DB_NAME=${APP_NAME}-postgres
 DB_VERSION=2025.02
 BUILD_DB=true
