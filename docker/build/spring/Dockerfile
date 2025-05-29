@@ -103,5 +103,5 @@ LABEL africa.za.atech.app.name="Learn Bridge"
 LABEL africa.za.atech.app.author.name=""
 LABEL africa.za.atech.app.author.email=""
 
-ARG APP_VERSION=2025.04.07
+ARG APP_VERSION=2025.05.29
 LABEL africa.za.atech.app.version=${APP_VERSION}
